@@ -1,0 +1,55 @@
+<process name="process" alias="流程啊">
+    <start name="i'm start" alias="开始">
+        <paths>
+            <path to="state1"/>
+        </paths>
+    </start>
+    <state name="state1" alias="节点1">
+        <paths>
+            <path to="state2" expr="goto==2"/>
+            <path to="state3" expr="goto==3"/>
+        </paths>
+    </state>
+    <state name="state2" repeatList="1m 1m 1m" alias="节点2">
+        <invokes>
+            <script return="_a" pojos="test.TestBean -> test, test.TestBean2 -> test2" expr="test2.judge()">
+                test2.testMethod(test.testMethod(_i))
+            </script>
+        </invokes>
+        <paths>
+            <path to="end"/>
+        </paths>
+    </state>
+    <state name="state3" alias="节点3">
+        <paths>
+            <path to="timer1"/>
+        </paths>
+    </state>
+    <timer name="timer1" alias="定时节点">
+        <interval>
+            <hour start="1" end="15"></hour>
+        </interval>
+        <invokes>
+            <script return="_a" pojos="test.TestBean -> test, test.TestBean2 -> test2" expr="test2.judge()">
+                test2.testMethod(test.testMethod(_i))
+            </script>
+        </invokes>
+        <paths>
+            <path to="delay1"/>
+        </paths>
+    </timer>
+
+    <delay name="delay1" alias="延时节点">
+        <time>3m</time>
+        <invokes>
+            <script return="_a" pojos="test.TestBean -> test, test.TestBean2 -> test2" expr="test2.judge()">
+                test2.testMethod(test.testMethod(_i))
+            </script>
+        </invokes>
+        <paths>
+            <path to="end"/>
+        </paths>
+    </delay>
+
+    <state name="end" alias="结束"/>
+</process>

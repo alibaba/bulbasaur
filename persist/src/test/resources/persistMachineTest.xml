@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	   					http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	   default-autowire="byName">
+
+	<context:annotation-config/>
+
+
+	<bean id="coreModule" class="com.tmall.pokemon.bulbasaur.core.CoreModule">
+		<property name="ownSign" value="default"/>
+	</bean>
+
+	<!-- 配置不同模块的bean -->
+	<bean id="persistModule" class="com.tmall.pokemon.bulbasaur.persist.PersistModule">
+		<property name="dataSource" ref="dataSource"/>
+		<!-- 默认走DB，不走DB 加上下面属性-->
+		<!--<property name="usePersistParser" value="false"/>-->
+		<property name="tableNameP" value="bulbasaur_p"/>
+		<property name="tableNameS" value="bulbasaur_s"/>
+		<property name="tableNameD" value="bulbasaur_d"/>
+		<property name="tableNameJ" value="bulbasaur_j"/>
+		<property name="tableNameT" value="bulbasaur_t"/>
+		<property name="tableNamePtp" value="bulbasaur_ptp"/>
+
+	</bean>
+	<!-- 引擎主bean -->
+	<bean id="bulbasaur" class="com.tmall.pokemon.bulbasaur.core.Bulbasaur">
+		<property name="requireModule">
+			<list>
+				<ref bean="persistModule"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dataSourceImpl" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		  abstract="false" scope="singleton" lazy-init="default" autowire="default"
+		  dependency-check="default" destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
+		<property name="jdbcUrl"
+				  value="jdbc:mysql://xxx.xxx.xxx.xxx:3306/xxxx?characterEncoding=utf8"/>
+		<property name="user" value="xxxx"/>
+		<property name="password" value="xxxx"/>
+		<property name="minPoolSize" value="10"/>
+		<property name="maxIdleTime" value="1800"/>
+		<property name="initialPoolSize" value="20"/>
+	</bean>
+
+	<bean id="dataSource"
+		  class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+		<property name="targetDataSource">
+			<ref local="dataSourceImpl"/>
+		</property>
+	</bean>
+
+	<!--&lt;!&ndash;tbschedule算法区间&ndash;&gt;-->
+	<!--<property name="taskItems" value="0:{[0,99]},1:{[100,199]},2:{[200,299]},3:{[300,399]},4:{[400,499]},5:{[500,599]},6:{[600,699]},7:{[700,799]},8:{[800,899]},9:{[900,999]}"/>-->
+	<!--&lt;!&ndash;可执行的机器列表&ndash;&gt;-->
+	<!--<property name="executeIps" value="127.0.0.1" />-->
+
+</beans>

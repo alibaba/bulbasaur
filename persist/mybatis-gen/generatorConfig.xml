@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!-- TODO 注意！！！！！-->
+    <!-- TODO 自动生成完成之后，要把Mapper xml 中的 表名都改成  ${表名}-->
+    <!-- TODO 注意！！！！！-->
+
+    <classPathEntry location="mybatis-gen/mysql-connector-java-5.1.27.jar"/>
+    <context id="mysqlTables" targetRuntime="MyBatis3">
+        <plugin type="com.xxg.mybatis.plugins.MySQLLimitPlugin"></plugin>
+        <plugin type="com.blackcowx.mybatis.generator.plugins.CommentPlugin"/>
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://xxx.xxx.xxx.xxx:3306/xxxx"
+                        userId="xxxx"
+                        password="xxxx">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.tmall.pokemon.bulbasaur.persist.domain" targetProject="MAVEN">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!--Mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources/persist">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.tmall.pokemon.bulbasaur.persist.mapper"
+                             targetProject="MAVEN">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+
+        <!-- TODO 注意！！！！！-->
+        <!-- TODO 自动生成完成之后，要把Mapper xml 中的 表名都改成  ${表名}-->
+        <!-- TODO 注意！！！！！-->
+
+        <table tableName="bulbasaur_d" domainObjectName="DefinitionDO">
+            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" type="post"/>
+            <columnOverride column="status" jdbcType="TINYINT" javaType="java.lang.Boolean"/>
+        </table>
+        <table tableName="bulbasaur_p" domainObjectName="ProcessDO">
+            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" type="post"/>
+        </table>
+        <table tableName="bulbasaur_s" domainObjectName="StateDO">
+            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" type="post"/>
+        </table>
+        <table tableName="bulbasaur_j" domainObjectName="JobDO">
+            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" type="post"/>
+            <columnOverride column="ignore_weekend" jdbcType="TINYINT" javaType="java.lang.Boolean"/>
+        </table>
+        <table tableName="bulbasaur_t" domainObjectName="TaskDO">
+            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" type="post"/>
+        </table>
+        <table tableName="bulbasaur_ptp" domainObjectName="ParticipationDO">
+            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" type="post"/>
+            <columnOverride column="status" jdbcType="TINYINT" javaType="java.lang.Boolean"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

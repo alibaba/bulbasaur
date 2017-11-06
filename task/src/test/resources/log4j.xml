@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+					 threshold="null" debug="null">
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%p [%d{HH:mm:ss,SSS}] [%t] %c{1}.%M(%L) | %m%n"/>
+		</layout>
+	</appender>
+
+	<appender name="PROJECT" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${bulbasaur.logger.path}/bulbasaur.log"/>
+		<param name="append" value="true"/>
+		<param name="encoding" value="UTF-8"/>
+		<param name="threshold" value="INFO"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p %c{2} - %m%n"/>
+		</layout>
+	</appender>
+	<!-- ibatis debug start 目前量，ibatis.log 每天大概120M左右-->
+	<appender name="IBatis" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${bulbasaur.logger.path}/ibatis.log"/>
+
+		<param name="append" value="true"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				   value="%-4r [%t] %-5p %c %x - %m%n"/>
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="DEBUG"/>
+			<param name="LevelMax" value="DEBUG"/>
+		</filter>
+	</appender>
+
+	<logger name="com.ibatis" additivity="true">
+		<level value="DEBUG"/>
+	</logger>
+
+	<logger name="java.sql.Connection" additivity="true">
+		<level value="DEBUG"/>
+	</logger>
+
+	<logger name="java.sql.Statement" additivity="true">
+		<level value="DEBUG"/>
+	</logger>
+
+	<logger name="java.sql.PreparedStatement" additivity="true">
+		<level value="DEBUG"/>
+		<appender-ref ref="IBatis"/>
+	</logger>
+
+	<logger name="java.sql.ResultSet" additivity="true">
+		<level value="DEBUG"/>
+		<appender-ref ref="IBatis"/>
+	</logger>
+	<!-- ibatis debug end -->
+	persistModuleSqlMapClient
+	<root>
+		<level value="debug"/>
+		<!--<appender-ref ref="PROJECT"/>-->
+		<appender-ref ref="CONSOLE"/>
+	</root>
+</log4j:configuration>

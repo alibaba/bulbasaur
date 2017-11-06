@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+		 xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.tmall.pokemon.bulbasaur</groupId>
+	<artifactId>bulbasaur-tools</artifactId>
+	<packaging>jar</packaging>
+	<name>Bulbasaur Tools</name>
+	<parent>
+		<groupId>com.tmall.pokemon.bulbasaur</groupId>
+		<artifactId>bulbasaur-parent</artifactId>
+		<version>1.1.2-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncodin>UTF-8</project.build.sourceEncodin>
+		<maven.deploy.skip>true</maven.deploy.skip>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.tmall.pokemon.bulbasaur</groupId>
+			<artifactId>bulbasaur-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+                     threshold="null" debug="null">
+    <appender name="Console" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%p [%d{HH:mm:ss,SSS}] [%t] %c{1}.%M(%L) | %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="PROJECT" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="${bulbasaur.logger.path}/bulbasaur.log"/>
+        <param name="append" value="true"/>
+        <param name="encoding" value="UTF-8"/>
+        <param name="threshold" value="INFO"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p %c{2} - %m%n"/>
+        </layout>
+    </appender>
+
+    <!--mybatis start-->
+    <logger name="log4j.logger.noModule" level="fatal" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="log4j.logger.org.mybatis.jpetstore" level="trace" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="log4j.logger.com.opensymphony.xwork2" level="debug" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="log4j.logger.com.ibatis" level="trace" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="log4j.logger.com.ibatis.common.jdbc.SimpleDataSource" level="debug" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="log4j.logger.com.ibatis.common.jdbc.ScriptRunner" level="debug" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="log4j.logger.com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="debug" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="log4j.logger.org.mybatis" level="debug" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="log4j.logger.java.sql" level="debug" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="log4j.logger.java.sql.Connection" level="debug" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="log4j.logger.java.sql.Statement" level="debug" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="log4j.logger.java.sql.PreparedStatement" level="debug" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="log4j.logger.java.sql.ResultSet" level="debug" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+
+    <!--mybatis end-->
+
+    <root>
+        <level value="trace"/>
+        <appender-ref ref="PROJECT"/>
+        <appender-ref ref="Console"/>
+    </root>
+</log4j:configuration>

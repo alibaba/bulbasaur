@@ -1,0 +1,34 @@
+<process name="process_with_exception">
+    <start name="i'm start">
+        <paths>
+            <path to="state1"/>
+        </paths>
+    </start>
+    <state name="state1">
+        <paths>
+            <path to="state2" expr="goto==2"/>
+            <path to="event3" expr="goto==3"/>
+        </paths>
+    </state>
+    <state name="state2">
+        <invokes>
+            <script pojos="test.TestBean -> test">
+                test.exceptionMethod()
+            </script>
+        </invokes>
+        <paths>
+            <path to="end"/>
+        </paths>
+    </state>
+    <event name="event3">
+        <pre-invokes>
+            <script pojos="test.TestBean -> test">
+                test.exceptionMethod()
+            </script>
+        </pre-invokes>
+        <paths>
+            <path to="end"/>
+        </paths>
+    </event>
+    <state name="end"/>
+</process>

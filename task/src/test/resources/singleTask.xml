@@ -1,0 +1,39 @@
+<process name="singleTask">
+	<start name="i'm start">
+		<paths>
+			<path to="state1"/>
+		</paths>
+	</start>
+	<state name="state1">
+		<paths>
+			<path to="state2" expr="goto==2"/>
+			<path to="state3" expr="goto==3"/>
+		</paths>
+	</state>
+	<state name="state2" repeatList="1m 2m 3m 2m 1m">
+		<invokes>
+			<script return="_a" pojos="test.TestBean2 -> test2" expr="test2.judge()">
+				test2.testMethod(2)
+			</script>
+		</invokes>
+		<paths>
+			<path to="state4"/>
+		</paths>
+	</state>
+	<task name="state4" candidate-users="00001:测试人员">
+		<invokes>
+			<script return="_a" pojos="test.TestBean2 -> test2" expr="test2.judge()">
+				test2.testState4(6)
+			</script>
+		</invokes>
+		<paths>
+			<path to="end"/>
+		</paths>
+	</task>
+	<state name="state3">
+		<paths>
+			<path to="end"/>
+		</paths>
+	</state>
+	<state name="end"/>
+</process>

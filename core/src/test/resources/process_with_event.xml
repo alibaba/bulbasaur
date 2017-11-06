@@ -1,0 +1,42 @@
+<process name="process_with_event">
+    <start name="i'm start">
+        <paths>
+            <path to="state1"/>
+        </paths>
+    </start>
+    <event name="state1">
+        <pre-invokes>
+            <script return="info">
+                "some info"
+            </script>
+        </pre-invokes>
+        <invokes>
+            <script return="a" pojos="test.TestBean -> test, test.TestBean2 -> test2">
+                test2.testMethod(test.testMethod(i))
+            </script>
+        </invokes>
+        <paths>
+            <path to="state2" expr="goto==2"/>
+            <path to="state3" expr="goto==3"/>
+        </paths>
+    </event>
+    <state name="state2">
+        <invokes>
+            <script return="a" pojos="test.TestBean -> test, test.TestBean2 -> test2">
+                test2.testMethod(test.testMethod(i))
+            </script>
+            <script return="a" pojos="test.TestBean -> test, test.TestBean2 -> test2" expr="test2.judge()">
+                test2.testMethod(test.testMethod(i))
+            </script>
+        </invokes>
+        <paths>
+            <path to="end"/>
+        </paths>
+    </state>
+    <state name="state3">
+        <paths>
+            <path to="end"/>
+        </paths>
+    </state>
+    <state name="end"/>
+</process>

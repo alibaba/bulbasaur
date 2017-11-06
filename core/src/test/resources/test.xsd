@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	targetNamespace="http://www.tmall.com/pokemon/bulbasaur/schema/invoke">
+	<xs:element name="pre-invokes" minOccurs="0">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="script">
+					<xs:complexType mixed="true">
+						<xs:attribute name="async" type="xs:boolean" />
+						<xs:attribute name="pojos" />
+						<xs:attribute name="expr" />
+						<xs:attribute name="return" type="xs:string" /><!-- use="required" -->
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="invokes" minOccurs="0">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="script">
+					<xs:complexType mixed="true">
+						<xs:attribute name="async" type="xs:boolean" />
+						<xs:attribute name="pojos" />
+						<xs:attribute name="expr" />
+						<xs:attribute name="return" type="xs:string" /><!-- use="required" -->
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

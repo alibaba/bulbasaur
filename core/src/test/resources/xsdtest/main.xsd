@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.tmall.com/pokemon/bulbasaur/schema/process">
+	<xs:element name="process">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:any namespace="http://www.tmall.com/pokemon/bulbasaur/schema/node" />
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
