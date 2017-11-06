@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmall.pokemon.bulbasaur.persist.mapper.JobDOMapper">
+  <resultMap id="BaseResultMap" type="com.tmall.pokemon.bulbasaur.persist.domain.JobDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="biz_id" jdbcType="VARCHAR" property="bizId" />
+    <result column="definition_name" jdbcType="VARCHAR" property="definitionName" />
+    <result column="state_name" jdbcType="VARCHAR" property="stateName" />
+    <result column="event_type" jdbcType="VARCHAR" property="eventType" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="repetition" jdbcType="VARCHAR" property="repetition" />
+    <result column="ignore_weekend" jdbcType="TINYINT" property="ignoreWeekend" />
+    <result column="deal_strategy" jdbcType="VARCHAR" property="dealStrategy" />
+    <result column="repeat_times" jdbcType="BIGINT" property="repeatTimes" />
+    <result column="task_id" jdbcType="BIGINT" property="taskId" />
+    <result column="mod_num" jdbcType="BIGINT" property="modNum" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="last_exception_stack" jdbcType="VARCHAR" property="lastExceptionStack" />
+    <result column="out_going" jdbcType="VARCHAR" property="outGoing" />
+    <result column="own_sign" jdbcType="VARCHAR" property="ownSign" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, gmt_create, gmt_modified, biz_id, definition_name, state_name, event_type, status, 
+    repetition, ignore_weekend, deal_strategy, repeat_times, task_id, mod_num, end_time, 
+    last_exception_stack, out_going, own_sign
+  </sql>
+  <select id="selectByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.JobDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bulbasaur_j
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bulbasaur_j
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bulbasaur_j
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.JobDOExample">
+    delete from bulbasaur_j
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.JobDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bulbasaur_j (gmt_create, gmt_modified, biz_id, 
+      definition_name, state_name, event_type, 
+      status, repetition, ignore_weekend, 
+      deal_strategy, repeat_times, task_id, 
+      mod_num, end_time, last_exception_stack, 
+      out_going, own_sign)
+    values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{bizId,jdbcType=VARCHAR}, 
+      #{definitionName,jdbcType=VARCHAR}, #{stateName,jdbcType=VARCHAR}, #{eventType,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{repetition,jdbcType=VARCHAR}, #{ignoreWeekend,jdbcType=TINYINT}, 
+      #{dealStrategy,jdbcType=VARCHAR}, #{repeatTimes,jdbcType=BIGINT}, #{taskId,jdbcType=BIGINT}, 
+      #{modNum,jdbcType=BIGINT}, #{endTime,jdbcType=TIMESTAMP}, #{lastExceptionStack,jdbcType=VARCHAR}, 
+      #{outGoing,jdbcType=VARCHAR}, #{ownSign,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.JobDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bulbasaur_j
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="bizId != null">
+        biz_id,
+      </if>
+      <if test="definitionName != null">
+        definition_name,
+      </if>
+      <if test="stateName != null">
+        state_name,
+      </if>
+      <if test="eventType != null">
+        event_type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="repetition != null">
+        repetition,
+      </if>
+      <if test="ignoreWeekend != null">
+        ignore_weekend,
+      </if>
+      <if test="dealStrategy != null">
+        deal_strategy,
+      </if>
+      <if test="repeatTimes != null">
+        repeat_times,
+      </if>
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="modNum != null">
+        mod_num,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="lastExceptionStack != null">
+        last_exception_stack,
+      </if>
+      <if test="outGoing != null">
+        out_going,
+      </if>
+      <if test="ownSign != null">
+        own_sign,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bizId != null">
+        #{bizId,jdbcType=VARCHAR},
+      </if>
+      <if test="definitionName != null">
+        #{definitionName,jdbcType=VARCHAR},
+      </if>
+      <if test="stateName != null">
+        #{stateName,jdbcType=VARCHAR},
+      </if>
+      <if test="eventType != null">
+        #{eventType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="repetition != null">
+        #{repetition,jdbcType=VARCHAR},
+      </if>
+      <if test="ignoreWeekend != null">
+        #{ignoreWeekend,jdbcType=TINYINT},
+      </if>
+      <if test="dealStrategy != null">
+        #{dealStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="repeatTimes != null">
+        #{repeatTimes,jdbcType=BIGINT},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="modNum != null">
+        #{modNum,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastExceptionStack != null">
+        #{lastExceptionStack,jdbcType=VARCHAR},
+      </if>
+      <if test="outGoing != null">
+        #{outGoing,jdbcType=VARCHAR},
+      </if>
+      <if test="ownSign != null">
+        #{ownSign,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.JobDOExample" resultType="java.lang.Integer">
+    select count(*) from bulbasaur_j
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bulbasaur_j
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bizId != null">
+        biz_id = #{record.bizId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.definitionName != null">
+        definition_name = #{record.definitionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stateName != null">
+        state_name = #{record.stateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventType != null">
+        event_type = #{record.eventType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repetition != null">
+        repetition = #{record.repetition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ignoreWeekend != null">
+        ignore_weekend = #{record.ignoreWeekend,jdbcType=TINYINT},
+      </if>
+      <if test="record.dealStrategy != null">
+        deal_strategy = #{record.dealStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repeatTimes != null">
+        repeat_times = #{record.repeatTimes,jdbcType=BIGINT},
+      </if>
+      <if test="record.taskId != null">
+        task_id = #{record.taskId,jdbcType=BIGINT},
+      </if>
+      <if test="record.modNum != null">
+        mod_num = #{record.modNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastExceptionStack != null">
+        last_exception_stack = #{record.lastExceptionStack,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outGoing != null">
+        out_going = #{record.outGoing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownSign != null">
+        own_sign = #{record.ownSign,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bulbasaur_j
+    set id = #{record.id,jdbcType=BIGINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      biz_id = #{record.bizId,jdbcType=VARCHAR},
+      definition_name = #{record.definitionName,jdbcType=VARCHAR},
+      state_name = #{record.stateName,jdbcType=VARCHAR},
+      event_type = #{record.eventType,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      repetition = #{record.repetition,jdbcType=VARCHAR},
+      ignore_weekend = #{record.ignoreWeekend,jdbcType=TINYINT},
+      deal_strategy = #{record.dealStrategy,jdbcType=VARCHAR},
+      repeat_times = #{record.repeatTimes,jdbcType=BIGINT},
+      task_id = #{record.taskId,jdbcType=BIGINT},
+      mod_num = #{record.modNum,jdbcType=BIGINT},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      last_exception_stack = #{record.lastExceptionStack,jdbcType=VARCHAR},
+      out_going = #{record.outGoing,jdbcType=VARCHAR},
+      own_sign = #{record.ownSign,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.JobDO">
+    update bulbasaur_j
+    <set>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bizId != null">
+        biz_id = #{bizId,jdbcType=VARCHAR},
+      </if>
+      <if test="definitionName != null">
+        definition_name = #{definitionName,jdbcType=VARCHAR},
+      </if>
+      <if test="stateName != null">
+        state_name = #{stateName,jdbcType=VARCHAR},
+      </if>
+      <if test="eventType != null">
+        event_type = #{eventType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="repetition != null">
+        repetition = #{repetition,jdbcType=VARCHAR},
+      </if>
+      <if test="ignoreWeekend != null">
+        ignore_weekend = #{ignoreWeekend,jdbcType=TINYINT},
+      </if>
+      <if test="dealStrategy != null">
+        deal_strategy = #{dealStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="repeatTimes != null">
+        repeat_times = #{repeatTimes,jdbcType=BIGINT},
+      </if>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="modNum != null">
+        mod_num = #{modNum,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastExceptionStack != null">
+        last_exception_stack = #{lastExceptionStack,jdbcType=VARCHAR},
+      </if>
+      <if test="outGoing != null">
+        out_going = #{outGoing,jdbcType=VARCHAR},
+      </if>
+      <if test="ownSign != null">
+        own_sign = #{ownSign,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.JobDO">
+    update bulbasaur_j
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      biz_id = #{bizId,jdbcType=VARCHAR},
+      definition_name = #{definitionName,jdbcType=VARCHAR},
+      state_name = #{stateName,jdbcType=VARCHAR},
+      event_type = #{eventType,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      repetition = #{repetition,jdbcType=VARCHAR},
+      ignore_weekend = #{ignoreWeekend,jdbcType=TINYINT},
+      deal_strategy = #{dealStrategy,jdbcType=VARCHAR},
+      repeat_times = #{repeatTimes,jdbcType=BIGINT},
+      task_id = #{taskId,jdbcType=BIGINT},
+      mod_num = #{modNum,jdbcType=BIGINT},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      last_exception_stack = #{lastExceptionStack,jdbcType=VARCHAR},
+      out_going = #{outGoing,jdbcType=VARCHAR},
+      own_sign = #{ownSign,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

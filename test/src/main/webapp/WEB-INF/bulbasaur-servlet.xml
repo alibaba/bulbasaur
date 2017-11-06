@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+
+	   default-autowire="byName">
+	<context:annotation-config/>
+	<bean id="urlMapping"
+		  class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/checkpreload.htm">
+					mockController
+				</prop>
+				<prop key="/createTask.htm">
+					createTaskController
+				</prop>
+				<prop key="/completeTask.htm">
+					completeTaskController
+				</prop>
+				<prop key="/assignTask.htm">
+					assignTaskController
+				</prop>
+				<prop key="/takenTask.htm">
+					takenTaskController
+				</prop>
+				<prop key="/dts.htm">
+					dTSController
+				</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- Controller -->
+	<bean name="mockController" class="com.taobao.bulbasaur.controller.MockController"/>
+	<bean name="createTaskController" class="com.taobao.bulbasaur.controller.CreateTaskController"/>
+	<bean name="takenTaskController" class="com.taobao.bulbasaur.controller.TakenTaskController"/>
+	<bean name="completeTaskController" class="com.taobao.bulbasaur.controller.CompleteTaskController"/>
+	<bean name="assignTaskController" class="com.taobao.bulbasaur.controller.AssignTaskController"/>
+	<bean name="dTSController" class="com.taobao.bulbasaur.controller.DTSController"/>
+</beans>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="http://www.tmall.com/pokemon/bulbasaur/schema/node">
+    <xs:element name="timer" minOccurs="0">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:any namespace="http://www.tmall.com/pokemon/bulbasaur/schema/invoke"/>
+                </xs:choice>
+                <xs:choice minOccurs="1" maxOccurs="3">
+                    <xs:element name="interval">
+                        <xs:complexType>
+                            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                <xs:element name="hour">
+                                    <xs:complexType mixed="true">
+                                        <xs:attribute name="start" type="xs:string" use="required"/>
+                                        <xs:attribute name="end" type="xs:string" use="required"/>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:choice>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+                <xs:element name="paths">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="path">
+                                <xs:complexType>
+                                    <xs:attribute name="expr"/>
+                                    <xs:attribute name="to" use="required" type="xs:string"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" use="required" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

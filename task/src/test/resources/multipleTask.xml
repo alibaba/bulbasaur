@@ -1,0 +1,53 @@
+<process name="multipleTask">
+	<start name="i'm start">
+		<paths>
+			<path to="state1"/>
+		</paths>
+	</start>
+	<state name="state1">
+		<paths>
+			<path to="state2" expr="goto==2"/>
+			<path to="state3" expr="goto==3"/>
+		</paths>
+	</state>
+	<state name="state2" repeatList="1m 2m 3m 2m 1m">
+		<invokes>
+			<script return="_a" pojos="test.TestBean2 -> test2" expr="test2.judge()">
+				test2.testMethod(2)
+			</script>
+		</invokes>
+		<paths>
+			<path to="state4"/>
+		</paths>
+	</state>
+	<task name="state4" candidate-users="00001:测试人员,00002:初审人员">
+		<invokes>
+			<script return="_a" pojos="test.TestBean2 -> test2" expr="test2.judge()">
+				test2.testState4(6)
+			</script>
+		</invokes>
+		<assignment-handler>
+			<script return="_a" pojos="test.TestBean2 -> test2" expr="test2.judge()">
+				test2.getUsers(2)
+			</script>
+		</assignment-handler>
+		<!--配置超时节点，必须配置超时时间，这里不给xml的配置方式，只由业务方提供接口，并返回特定map -->
+		<!--map.put("duedate", "2m");//超时时间-->
+		<!--map.put("jumpTo", "end");-->
+		<!--map.put("ignoreWeekend", "true");-->
+		<!--<timeout-handler>-->
+			<!--<script return="_a" pojos="test.TestBean2 -> test2" expr="test2.judge()">-->
+				<!--test2.getTimeOutStra(2)-->
+			<!--</script>-->
+		<!--</timeout-handler>-->
+		<paths>
+			<path to="end"/>
+		</paths>
+	</task>
+	<state name="state3">
+		<paths>
+			<path to="end"/>
+		</paths>
+	</state>
+	<state name="end"/>
+</process>

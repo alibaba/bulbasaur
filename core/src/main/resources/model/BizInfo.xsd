@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" targetNamespace="http://www.tmall.com/pokemon/bulbasaur/schema/node">
+	<xs:element name="bizInfo" minOccurs="0">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="info">
+					<xs:complexType>
+						<xs:attribute name="key" use="required" type="xs:string" />
+						<xs:attribute name="value" type="xs:string" />
+						<xs:attribute name="code" type="xs:NMTOKEN" />
+						<xs:attribute name="msg" type="xs:string" />
+						<xs:attribute name="node" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

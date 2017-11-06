@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="gbk"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+       default-autowire="byName">
+
+
+    <bean id="persistModuleSqlMapClient" class="com.tmall.pokemon.bulbasaur.persist.mybatis.SqlSessionFactory">
+        <property name="typeAliasesPackage" value="com.tmall.pokemon.bulbasaur.persist.domain"/>
+        <property name="mapperLocations" value="classpath:/persist/mapper/*Mapper.xml"/>
+        <property name="configLocation" value="classpath:/persist/mybatis-config.xml"/>
+    </bean>
+
+    <bean id="persistMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.tmall.pokemon.bulbasaur.persist.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="persistModuleSqlMapClient"/>
+    </bean>
+
+    <bean id="persistHelper" class="com.tmall.pokemon.bulbasaur.persist.PersistHelper"/>
+
+    <bean id="definitionHelper" class="com.tmall.pokemon.bulbasaur.persist.DefinitionHelper"/>
+
+    <bean id="persistParser" class="com.tmall.pokemon.bulbasaur.persist.PersistParser"/>
+
+    <bean id="persistMachineFactory" class="com.tmall.pokemon.bulbasaur.persist.PersistMachineFactory"/>
+
+</beans>

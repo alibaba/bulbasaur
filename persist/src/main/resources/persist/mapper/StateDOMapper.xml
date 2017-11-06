@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmall.pokemon.bulbasaur.persist.mapper.StateDOMapper">
+  <resultMap id="BaseResultMap" type="com.tmall.pokemon.bulbasaur.persist.domain.StateDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="biz_id" jdbcType="VARCHAR" property="bizId" />
+    <result column="state_name" jdbcType="VARCHAR" property="stateName" />
+    <result column="own_sign" jdbcType="VARCHAR" property="ownSign" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="exe_info" jdbcType="VARCHAR" property="exeInfo" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tmall.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
+    <result column="pre_biz_info" jdbcType="LONGVARCHAR" property="preBizInfo" />
+    <result column="biz_info" jdbcType="LONGVARCHAR" property="bizInfo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, biz_id, state_name, own_sign, status, gmt_create, gmt_modified, alias, exe_info
+  </sql>
+  <sql id="Blob_Column_List">
+    pre_biz_info, biz_info
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bulbasaur_s
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bulbasaur_s
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bulbasaur_s
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bulbasaur_s
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOExample">
+    delete from bulbasaur_s
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bulbasaur_s (biz_id, state_name, own_sign, 
+      status, gmt_create, gmt_modified, 
+      alias, exe_info, pre_biz_info, 
+      biz_info)
+    values (#{bizId,jdbcType=VARCHAR}, #{stateName,jdbcType=VARCHAR}, #{ownSign,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{alias,jdbcType=VARCHAR}, #{exeInfo,jdbcType=VARCHAR}, #{preBizInfo,jdbcType=LONGVARCHAR}, 
+      #{bizInfo,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bulbasaur_s
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bizId != null">
+        biz_id,
+      </if>
+      <if test="stateName != null">
+        state_name,
+      </if>
+      <if test="ownSign != null">
+        own_sign,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="alias != null">
+        alias,
+      </if>
+      <if test="exeInfo != null">
+        exe_info,
+      </if>
+      <if test="preBizInfo != null">
+        pre_biz_info,
+      </if>
+      <if test="bizInfo != null">
+        biz_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bizId != null">
+        #{bizId,jdbcType=VARCHAR},
+      </if>
+      <if test="stateName != null">
+        #{stateName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownSign != null">
+        #{ownSign,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alias != null">
+        #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="exeInfo != null">
+        #{exeInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="preBizInfo != null">
+        #{preBizInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="bizInfo != null">
+        #{bizInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOExample" resultType="java.lang.Integer">
+    select count(*) from bulbasaur_s
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bulbasaur_s
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.bizId != null">
+        biz_id = #{record.bizId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stateName != null">
+        state_name = #{record.stateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownSign != null">
+        own_sign = #{record.ownSign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.alias != null">
+        alias = #{record.alias,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exeInfo != null">
+        exe_info = #{record.exeInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.preBizInfo != null">
+        pre_biz_info = #{record.preBizInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.bizInfo != null">
+        biz_info = #{record.bizInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update bulbasaur_s
+    set id = #{record.id,jdbcType=BIGINT},
+      biz_id = #{record.bizId,jdbcType=VARCHAR},
+      state_name = #{record.stateName,jdbcType=VARCHAR},
+      own_sign = #{record.ownSign,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      alias = #{record.alias,jdbcType=VARCHAR},
+      exe_info = #{record.exeInfo,jdbcType=VARCHAR},
+      pre_biz_info = #{record.preBizInfo,jdbcType=LONGVARCHAR},
+      biz_info = #{record.bizInfo,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bulbasaur_s
+    set id = #{record.id,jdbcType=BIGINT},
+      biz_id = #{record.bizId,jdbcType=VARCHAR},
+      state_name = #{record.stateName,jdbcType=VARCHAR},
+      own_sign = #{record.ownSign,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      alias = #{record.alias,jdbcType=VARCHAR},
+      exe_info = #{record.exeInfo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
+    update bulbasaur_s
+    <set>
+      <if test="bizId != null">
+        biz_id = #{bizId,jdbcType=VARCHAR},
+      </if>
+      <if test="stateName != null">
+        state_name = #{stateName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownSign != null">
+        own_sign = #{ownSign,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alias != null">
+        alias = #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="exeInfo != null">
+        exe_info = #{exeInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="preBizInfo != null">
+        pre_biz_info = #{preBizInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="bizInfo != null">
+        biz_info = #{bizInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
+    update bulbasaur_s
+    set biz_id = #{bizId,jdbcType=VARCHAR},
+      state_name = #{stateName,jdbcType=VARCHAR},
+      own_sign = #{ownSign,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      alias = #{alias,jdbcType=VARCHAR},
+      exe_info = #{exeInfo,jdbcType=VARCHAR},
+      pre_biz_info = #{preBizInfo,jdbcType=LONGVARCHAR},
+      biz_info = #{bizInfo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDO">
+    update bulbasaur_s
+    set biz_id = #{bizId,jdbcType=VARCHAR},
+      state_name = #{stateName,jdbcType=VARCHAR},
+      own_sign = #{ownSign,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      alias = #{alias,jdbcType=VARCHAR},
+      exe_info = #{exeInfo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

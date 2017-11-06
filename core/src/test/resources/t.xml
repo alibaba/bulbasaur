@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.tmall.com/pokemon/bulbasaur/schema/process" xmlns:n="http://www.tmall.com/pokemon/bulbasaur/schema/node"
+	xmlns:i="http://www.tmall.com/pokemon/bulbasaur/schema/invoke"
+	xsi:schemaLocation="http://www.tmall.com/pokemon/bulbasaur/schema/process process.xsd
+		 http://www.tmall.com/pokemon/bulbasaur/schema/node node.xsd
+		 http://www.tmall.com/pokemon/bulbasaur/schema/invoke invoke.xsd"
+	name="process">
+	<n:start name="s">
+		<n:paths>
+			<n:path to="end" />
+		</n:paths>
+	</n:start>
+</process>

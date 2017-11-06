@@ -1,0 +1,32 @@
+<process name="persist_definition">
+    <start name="i'm start">
+        <paths>
+            <path to="state1"/>
+        </paths>
+    </start>
+    <state name="state1">
+        <paths>
+            <path to="state2" expr="goto==2"/>
+            <path to="state3" expr="goto==3"/>
+        </paths>
+    </state>
+    <state name="state2">
+        <invokes>
+            <script return="_a" pojos="test.TestBean -> test, test.TestBean2 -> test2">
+                test2.testMethod(test.testMethod(_i))
+            </script>
+            <script return="_a" pojos="test.TestBean -> test, test.TestBean2 -> test2" expr="test2.judge()">
+                test2.testMethod(test.testMethod(_i))
+            </script>
+        </invokes>
+        <paths>
+            <path to="end"/>
+        </paths>
+    </state>
+    <state name="state3">
+        <paths>
+            <path to="end"/>
+        </paths>
+    </state>
+    <state name="end"/>
+</process>

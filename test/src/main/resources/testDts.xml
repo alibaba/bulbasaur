@@ -1,0 +1,35 @@
+<process name="dtstest">
+	<start name="i'm start">
+		<paths>
+			<path to="state1"/>
+		</paths>
+	</start>
+	<state name="state1">
+		<paths>
+			<path to="state2" expr="goto==2"/>
+			<path to="state3" expr="goto==3"/>
+		</paths>
+	</state>
+	<state name="state2" repeatList="1m 2m 3m 2m 1m">
+		<!--重复时间的列表，支持 s秒，m分钟，h小时-->
+		<invokes>
+			<script return="_a" beans="aabb" >
+				aabb.testMethod(2)
+			</script>
+		</invokes>
+		<paths>
+			<path to="state4"/>
+		</paths>
+	</state>
+	<state name="state3">
+		<paths>
+			<path to="end"/>
+		</paths>
+	</state>
+	<state name="state4">
+		<paths>
+			<path to="end"/>
+		</paths>
+	</state>
+	<state name="end"/>
+</process>

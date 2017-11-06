@@ -1,0 +1,25 @@
+<process name="repeatState" alias="流程啊">
+    <start name="i'm start" alias="开始">
+        <paths>
+            <path to="state1"/>
+        </paths>
+    </start>
+    <state name="state1" alias="节点1">
+        <paths>
+            <path to="state2"/>
+        </paths>
+    </state>
+    <state name="state2" alias="节点2">
+        <invokes>
+            <script return="_a" pojos="test.TestBean -> test">
+                test.testMethod(_a)
+            </script>
+        </invokes>
+        <paths>
+            <path to="state2"     expr="_a &lt;= 10"   />
+            <path to="end"  expr="_a  &gt; 10 " />
+
+        </paths>
+    </state>
+    <state name="end" alias="结束"/>
+</process>

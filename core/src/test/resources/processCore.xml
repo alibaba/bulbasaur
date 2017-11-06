@@ -1,0 +1,35 @@
+<process name="process" alias="流程啊">
+	<bizInfo>
+		<info key="r" value="r1" />
+		<info key="r" value="r2" />
+		<info key="r" value="r3" />
+	</bizInfo>
+
+	<start name="i'm start" alias="开始啊">
+		<paths>
+			<path to="state1"/>
+		</paths>
+	</start>
+	<state name="state1" alias="节点1啊">
+		<paths>
+			<path to="state2" expr="goto==2"/>
+			<path to="state3" expr="goto==3"/>
+		</paths>
+	</state>
+	<state name="state2" alias="节点2啊">
+		<invokes>
+			<script return="a" pojos="test.TestBean -> test, test.TestBean2 -> test2">
+				test2.testMethod(test.testMethod(i))
+			</script>
+		</invokes>
+		<paths>
+			<path to="end"/>
+		</paths>
+	</state>
+	<state name="state3" alias="节点3啊">
+		<paths>
+			<path to="end"/>
+		</paths>
+	</state>
+	<state name="end" alias="结束啊"/>
+</process>
