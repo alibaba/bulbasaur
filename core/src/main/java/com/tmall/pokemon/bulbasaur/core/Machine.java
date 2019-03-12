@@ -35,7 +35,7 @@ public class Machine {
      */
     protected Machine(String processName, int processVersion, Place place) {
         if (place == null) {
-            place = Bulbasaur.getInnerApplicationContext().getBean("place", Place.class);
+            place = Bulbasaur.getInnerBeanFactory().getBean("place", Place.class);
         }
         // 要单例
         this.place = place;

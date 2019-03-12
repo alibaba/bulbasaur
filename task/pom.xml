@@ -58,11 +58,7 @@
       <groupId>com.taobao.diamond</groupId>  
       <artifactId>diamond-client</artifactId> 
     </dependency>  
-    <dependency> 
-      <groupId>joda-time</groupId>  
-      <artifactId>joda-time</artifactId> 
-    </dependency>  
-    <dependency> 
+    <dependency>
       <groupId>com.alibaba</groupId>  
       <artifactId>fastjson</artifactId> 
     </dependency> 

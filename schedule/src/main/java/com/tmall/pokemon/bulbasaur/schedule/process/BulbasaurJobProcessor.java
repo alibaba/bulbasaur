@@ -1,9 +1,5 @@
 package com.tmall.pokemon.bulbasaur.schedule.process;
 
-import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
-
 import com.tmall.pokemon.bulbasaur.core.CoreModule;
 import com.tmall.pokemon.bulbasaur.persist.constant.StateConstant;
 import com.tmall.pokemon.bulbasaur.persist.domain.JobDO;
@@ -27,6 +23,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+import java.util.List;
+
 @Component
 public class BulbasaurJobProcessor extends AbstractBulbasaurProcessor<JobDOExample, JobDO> implements org.quartz.Job {
     private static Logger logger = LoggerFactory.getLogger(BulbasaurJobProcessor.class);
@@ -44,7 +43,7 @@ public class BulbasaurJobProcessor extends AbstractBulbasaurProcessor<JobDOExamp
     BulbasaurExecutorHelper bulbasaurExecutorHelper;
 
     @Override
-    protected void shoot(List<JobDO> list) throws ParseException {
+    protected void shoot(List<JobDO> list) {
 
         boolean deleteOverdueJob = ScheduleModule.getInstance().getDeleteOverdueJob();
 
@@ -62,7 +61,6 @@ public class BulbasaurJobProcessor extends AbstractBulbasaurProcessor<JobDOExamp
 
                     StateDO stateDO = stateDOList != null && !stateDOList.isEmpty() ? stateDOList.get(0) : null;
                     if (stateDO == null || StateConstant.STATE_COMPLETE.equals(stateDO.getStatus())) {
-                        // delete
                         jobDOMapper.deleteByPrimaryKey(jobDO.getId());
                         continue;
                     }
@@ -75,7 +73,7 @@ public class BulbasaurJobProcessor extends AbstractBulbasaurProcessor<JobDOExamp
                         if (remaining <= 0) {
                             long start = System.currentTimeMillis();
 
-                            Job job = null;
+                            Job job;
 
                             if (JobConstant.JOB_ENVENT_TYPE_FAILEDRETRY.equals(jobDO.getEventType())) {
                                 job = new FailedRetryJob(jobDO, scheduleMachineFactory);
@@ -104,7 +102,9 @@ public class BulbasaurJobProcessor extends AbstractBulbasaurProcessor<JobDOExamp
                                         logger.error(String
                                             .format("bulbasaur job id = %s , bizId = %s , 已经超过最大重拾次数,被删除.....",
                                                 jobDO.getId(), jobDO.getBizId()));
+
                                         jobDOMapper.deleteByPrimaryKey(jobDO.getId());
+
                                     } else {
                                         // 重试次数没有了，认为是DONE
                                         Date now = new Date();

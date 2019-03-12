@@ -15,6 +15,7 @@ import com.tmall.pokemon.bulbasaur.persist.domain.StateDOExample;
 import com.tmall.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs;
 import com.tmall.pokemon.bulbasaur.persist.mapper.*;
 import com.tmall.pokemon.bulbasaur.schedule.process.JobHelper;
+import com.tmall.pokemon.bulbasaur.schedule.util.CommentUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ScheduleMachine extends PersistMachine {
     private final static Logger logger = LoggerFactory.getLogger(ScheduleMachine.class);
+    public static final int EXE_INFO_MAX_LENGTH = 4900;
     //需要构造的时候传入
     private JobHelper jobHelper;
     private JobDOMapper jobDOMapper;
@@ -57,7 +59,7 @@ public class ScheduleMachine extends PersistMachine {
                 // 在节点上面存一下执行信息
                 StateDOWithBLOBs stateDOWithBLOBs = new StateDOWithBLOBs();
                 stateDOWithBLOBs.setGmtModified(new Date());
-                stateDOWithBLOBs.setExeInfo(e.getMessage());
+                stateDOWithBLOBs.setExeInfo(subString(e.getMessage()));
                 StateDOExample stateDOExample = new StateDOExample();
                 stateDOExample.createCriteria().andOwnSignEqualTo(CoreModule.getInstance().getOwnSign())
                     .andStateNameEqualTo(currentState.getStateName())
@@ -93,6 +95,16 @@ public class ScheduleMachine extends PersistMachine {
         }
 
         return result;
+
+    }
+
+    private String subString(String message) {
+
+        if (CommentUtil.getLength(message) <= EXE_INFO_MAX_LENGTH) {
+            return StringUtils.remove(message, "'");
+        } else {
+            return StringUtils.remove(CommentUtil.subStr(message, EXE_INFO_MAX_LENGTH), "'");
+        }
 
     }
 

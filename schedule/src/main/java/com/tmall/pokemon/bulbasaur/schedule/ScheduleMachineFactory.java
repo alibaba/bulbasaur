@@ -6,6 +6,7 @@ import static com.tmall.pokemon.bulbasaur.util.SimpleUtils.require;
 import com.tmall.pokemon.bulbasaur.persist.PersistMachine;
 import com.tmall.pokemon.bulbasaur.persist.PersistMachineFactory;
 import com.tmall.pokemon.bulbasaur.persist.mapper.*;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -52,6 +53,10 @@ public class ScheduleMachineFactory extends PersistMachineFactory {
         require(bizId.matches("\\w+"), "bizId not match regex `\\w+`");
 
         PersistMachine persistMachine = super.newInstance(bizId, processName, processVersion);
+
+        if(StringUtils.isBlank(processName)){
+            processName = persistMachine.getProcessName();
+        }
 
         return new ScheduleMachine(bizId, processName, processVersion, persistMachine.getProcessDO()
             , processDOMapper, stateDOMapper, persistHelper, jobDOMapper, jobHelper, taskDOMapper, participationDOMapper);

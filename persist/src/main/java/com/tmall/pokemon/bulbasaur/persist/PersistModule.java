@@ -114,10 +114,10 @@ public class PersistModule extends Module implements InitializingBean {
     }
 
     @Override
-    public void afterInit() {
+    public void afterInit(String ownSign, String quartzTablePrefix) {
         if (usePersistParser) {
             CoreModule.getInstance().setParser(
-                Bulbasaur.getInnerApplicationContext().getBean("persistParser", PersistParser.class));
+                Bulbasaur.getInnerBeanFactory().getBean("persistParser", PersistParser.class));
         }
 
     }

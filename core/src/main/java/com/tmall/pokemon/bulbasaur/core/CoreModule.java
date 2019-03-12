@@ -67,13 +67,13 @@ public class CoreModule extends Module implements InitializingBean {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void afterInit() {
+    public void afterInit(String ownSign, String quartzTablePrefix) {
         logger.warn(this.toString());
         // 初始化节点类型
         setStateClasses(Start.class, State.class, Event.class, BizInfo.class);
         // 初始化调用方式类型
         setInvokableClasses(MvelScriptInvokable.class);
-        place = Bulbasaur.getInnerApplicationContext().getBean("place", Place.class);
+        place = Bulbasaur.getInnerBeanFactory().getBean("place", Place.class);
         if (parser != null) {
             logger.warn("a customer parser provide:" + parser.getClass().getName());
             place.setParser(parser);
