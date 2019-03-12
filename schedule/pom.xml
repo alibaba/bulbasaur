@@ -25,11 +25,7 @@
       <artifactId>bulbasaur-persist</artifactId>  
       <version>${project.version}</version> 
     </dependency>  
-    <dependency> 
-      <groupId>com.taobao.diamond</groupId>  
-      <artifactId>diamond-client</artifactId> 
-    </dependency>  
-    <dependency> 
+    <dependency>
       <groupId>mysql</groupId>  
       <artifactId>mysql-connector-java</artifactId> 
     </dependency>  
