@@ -133,37 +133,7 @@
       <version>4.11</version>  
       <scope>test</scope> 
     </dependency>  
-    <dependency> 
-      <groupId>com.taobao.test</groupId>  
-      <artifactId>itest</artifactId>  
-      <version>1.3-poi37-SNAPSHOT</version>  
-      <scope>test</scope>  
-      <exclusions> 
-        <exclusion> 
-          <groupId>org.springframework</groupId>  
-          <artifactId>spring</artifactId> 
-        </exclusion> 
-      </exclusions> 
-    </dependency>  
-    <dependency> 
-      <groupId>com.taobao.hsf</groupId>  
-      <artifactId>hsfunit</artifactId>  
-      <version>1.0.5-SNAPSHOT</version>  
-      <scope>test</scope> 
-    </dependency>  
-    <dependency> 
-      <groupId>com.taobao.hsf</groupId>  
-      <artifactId>hsf.unit</artifactId>  
-      <version>1.0.1</version>  
-      <scope>test</scope> 
-    </dependency>  
-    <dependency> 
-      <groupId>com.taobao.hsf</groupId>  
-      <artifactId>hsfstarter</artifactId>  
-      <version>1.0.1-SNAPSHOT</version>  
-      <scope>test</scope> 
-    </dependency>  
-    <dependency> 
+    <dependency>
       <groupId>mysql</groupId>  
       <artifactId>mysql-connector-java</artifactId> 
     </dependency>  
