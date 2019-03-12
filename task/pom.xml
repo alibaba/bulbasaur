@@ -54,10 +54,6 @@
       <groupId>org.springframework</groupId>  
       <artifactId>spring-test</artifactId> 
     </dependency>  
-    <dependency> 
-      <groupId>com.taobao.diamond</groupId>  
-      <artifactId>diamond-client</artifactId> 
-    </dependency>  
     <dependency>
       <groupId>com.alibaba</groupId>  
       <artifactId>fastjson</artifactId> 
