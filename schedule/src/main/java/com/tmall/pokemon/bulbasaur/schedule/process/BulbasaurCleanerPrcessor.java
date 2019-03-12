@@ -1,8 +1,5 @@
 package com.tmall.pokemon.bulbasaur.schedule.process;
 
-import java.text.ParseException;
-import java.util.List;
-
 import com.tmall.pokemon.bulbasaur.core.CoreModule;
 import com.tmall.pokemon.bulbasaur.persist.domain.JobDOExample;
 import com.tmall.pokemon.bulbasaur.persist.domain.ProcessDO;
@@ -11,13 +8,15 @@ import com.tmall.pokemon.bulbasaur.persist.domain.StateDOExample;
 import com.tmall.pokemon.bulbasaur.persist.mapper.JobDOMapper;
 import com.tmall.pokemon.bulbasaur.persist.mapper.ProcessDOMapper;
 import com.tmall.pokemon.bulbasaur.persist.mapper.StateDOMapper;
+import com.tmall.pokemon.bulbasaur.schedule.ScheduleModule;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class BulbasaurCleanerPrcessor extends AbstractBulbasaurProcessor<ProcessDOExample, ProcessDO>
@@ -34,7 +33,7 @@ public class BulbasaurCleanerPrcessor extends AbstractBulbasaurProcessor<Process
     BulbasaurExecutorHelper bulbasaurExecutorHelper;
 
     @Override
-    protected void shoot(List<ProcessDO> list) throws ParseException {
+    protected void shoot(List<ProcessDO> list) {
 
         for (ProcessDO pr : list) {
 
@@ -78,16 +77,25 @@ public class BulbasaurCleanerPrcessor extends AbstractBulbasaurProcessor<Process
     }
 
     @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
-        ProcessDOExample processDOExample = new ProcessDOExample();
-        processDOExample.setLimit(querySupportPageSize());
-        processDOExample.createCriteria().andStatusEqualTo("complete").andOwnSignEqualTo(
-            CoreModule.getInstance().getOwnSign());
+    public void execute(JobExecutionContext context) {
 
-        try {
-            handle(processDOExample);
-        } catch (Exception e) {
-            logger.error("清理流程和节点逻辑出现异常！e＝" + e.getMessage());
+        List<String> autoCleanDefinitionNameList = ScheduleModule.getInstance().getAutoCleanDefinitionNameList();
+
+        if (autoCleanDefinitionNameList != null && !autoCleanDefinitionNameList.isEmpty()) {
+
+            ProcessDOExample processDOExample = new ProcessDOExample();
+            processDOExample.setLimit(querySupportPageSize());
+            processDOExample.createCriteria()
+                .andStatusEqualTo("complete")
+                .andOwnSignEqualTo(CoreModule.getInstance().getOwnSign())
+                .andDefinitionNameIn(autoCleanDefinitionNameList)
+            ;
+
+            try {
+                handle(processDOExample);
+            } catch (Exception e) {
+                logger.error("清理流程和节点逻辑出现异常！e＝" + e.getMessage());
+            }
         }
 
     }

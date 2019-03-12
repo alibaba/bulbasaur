@@ -31,7 +31,7 @@ public class TaskModule extends Module implements InitializingBean {
     }
 
     @Override
-    public void afterInit() {
+    public void afterInit(String ownSign, String quartzTablePrefix) {
         //初始化task 节点，set到coreModule里面去
         CoreModule.getInstance().setStateClasses(Task.class);
     }

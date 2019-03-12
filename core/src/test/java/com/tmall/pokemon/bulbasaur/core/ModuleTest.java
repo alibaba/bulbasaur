@@ -76,7 +76,4 @@ public class ModuleTest {
 		}
 	}
 
-	public static void main(String[] args) {
-		Bulbasaur.require(new Module[] { ModuleD.getInstance() });
-	}
 }

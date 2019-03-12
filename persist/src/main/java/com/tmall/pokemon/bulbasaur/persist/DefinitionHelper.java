@@ -33,7 +33,7 @@ public class DefinitionHelper {
      * @return 返回DefinitionHelper在spring中的实例
      */
     public static DefinitionHelper getInstance() {
-        return Bulbasaur.getInnerApplicationContext().getBean("definitionHelper", DefinitionHelper.class);
+        return Bulbasaur.getInnerBeanFactory().getBean("definitionHelper", DefinitionHelper.class);
     }
 
     /**
@@ -113,8 +113,7 @@ public class DefinitionHelper {
 
                     DefinitionDOExample definitionDOExample = new DefinitionDOExample();
                     definitionDOExample.createCriteria().andOwnSignEqualTo(CoreModule.getInstance().getOwnSign())
-                        .andDefinitionNameEqualTo(name)
-                        .andDefinitionVersionEqualTo(version);
+                        .andDefinitionNameEqualTo(name);
                     DefinitionDO de = new DefinitionDO();
                     de.setStatus(false);
                     definitionDOMapper.updateByExampleSelective(de, definitionDOExample);

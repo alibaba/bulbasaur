@@ -6,9 +6,11 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -25,17 +27,40 @@ public class Bulbasaur implements InitializingBean, BeanFactoryPostProcessor, Ap
     private final static Logger logger = LoggerFactory.getLogger(Bulbasaur.class);
 
     // bulbasaur 自身容器
-    private static ApplicationContext innerApplicationContext;
+    private static BeanFactory innerBeanFactory;
     // 外部容器的ctx
     private static ApplicationContext applicationContext;
     private static boolean initialized = false;
     private static Map<Module, Integer> dependencies = new HashMap<Module, Integer>();
     private static boolean springContextShare = true;
+    /**
+     * 与CoreModule一样的，为了ScheduleModule的quartz
+     */
+    private String ownSign = "default";
+
+    // 默认是 QRTZ_
+    private String quartzTablePrefix = "QRTZ_";
     // 由spring中配置
     private Module[] requireModule;
 
-    public static void require() {
-        require(new Module[] {CoreModule.getInstance()});
+    public String getQuartzTablePrefix() {
+        return quartzTablePrefix;
+    }
+
+    public void setQuartzTablePrefix(String quartzTablePrefix) {
+        this.quartzTablePrefix = quartzTablePrefix;
+    }
+
+    public String getOwnSign() {
+        return ownSign;
+    }
+
+    public void setOwnSign(String ownSign) {
+        this.ownSign = ownSign;
+    }
+
+    public static void require(String ownSign, String quartzTablePrefix) {
+        require(new Module[] {CoreModule.getInstance()}, ownSign, quartzTablePrefix);
     }
 
     /**
@@ -44,7 +69,7 @@ public class Bulbasaur implements InitializingBean, BeanFactoryPostProcessor, Ap
      * @param modules
      * @since 2012-12-27 下午06:45:14
      */
-    public synchronized static void require(Module[] modules) {
+    public synchronized static void require(Module[] modules, String ownSign, String quartzTablePrefix) {
         if (initialized) {
             logger.warn("Bulbasaur already initialized!");
         } else {
@@ -63,11 +88,11 @@ public class Bulbasaur implements InitializingBean, BeanFactoryPostProcessor, Ap
             }
             dependencies = sortByValue(dependencies);
             // init spring first
-            innerApplicationContext = initSpring(dependencies.keySet());
+            innerBeanFactory = initSpring(dependencies.keySet());
             // then init module object themselves
             for (Module toInit : dependencies.keySet()) {
                 logger.warn("initialize " + toInit.getClass().getSimpleName());
-                toInit.init();
+                toInit.init(ownSign, quartzTablePrefix);
                 logger.warn(toInit.getClass().getSimpleName() + " initialized");
             }
         }
@@ -80,7 +105,9 @@ public class Bulbasaur implements InitializingBean, BeanFactoryPostProcessor, Ap
      * @param <K>
      * @param <V>
      * @param map
-     * @return Map<K,V>
+     * @return Map<K
+                       *       ,
+                       *       V>
      * @since 2012-12-5 下午2:19:38
      */
     public static <K, V extends Comparable<V>> Map<K, V> sortByValue(Map<K, V> map) {
@@ -173,7 +200,7 @@ public class Bulbasaur implements InitializingBean, BeanFactoryPostProcessor, Ap
 
         if (springContextShare) {
             if (beanFactory.getParentBeanFactory() == null) {
-                beanFactory.setParentBeanFactory(innerApplicationContext);
+                beanFactory.setParentBeanFactory(innerBeanFactory);
             } else {
                 logger.warn("Had set Parent applicationContext!");
             }
@@ -184,9 +211,9 @@ public class Bulbasaur implements InitializingBean, BeanFactoryPostProcessor, Ap
     public void afterPropertiesSet() throws Exception {
         logger.warn("require module from spring:" + Arrays.toString(requireModule));
         if (requireModule == null || requireModule.length == 0) {
-            require();
+            require(ownSign, quartzTablePrefix);
         } else {
-            require(requireModule);
+            require(requireModule, ownSign, quartzTablePrefix);
         }
 
         logger.warn("afterPropertiesSet initialized");
@@ -199,7 +226,7 @@ public class Bulbasaur implements InitializingBean, BeanFactoryPostProcessor, Ap
      * @author: yunche.ch@taobao.com
      * @since 2012-12-20 下午05:00:08
      */
-    private static ApplicationContext initSpring(Set<Module> requireModuleList) {
+    private static BeanFactory initSpring(Set<Module> requireModuleList) {
         long start = System.currentTimeMillis();
         String[] config = new String[dependencies.keySet().size()];
         int i = 0;
@@ -207,11 +234,25 @@ public class Bulbasaur implements InitializingBean, BeanFactoryPostProcessor, Ap
             config[i] = "classpath:" + m.getClass().getSimpleName() + ".xml";
             i++;
         }
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(config);
+
+        /**
+         * 本来是可以返回 ApplicationContext 的，但是业务方是 pandora boot 的时候，加载 handlerExceptionResolver 的时候
+         * 会报错 org.springframework.context.support.ClassPathXmlApplicationContext  不是实例化来自
+         * class org.springframework .beans.factory.support.DefaultListableBeanFactory
+         */
+        ApplicationContext temp = new ClassPathXmlApplicationContext(config);
+
+        //将applicationContext转换为ConfigurableApplicationContext
+        ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext)temp;
+
+        // 获取bean工厂并转换为DefaultListableBeanFactory
+        DefaultListableBeanFactory defaultListableBeanFactory
+            = (DefaultListableBeanFactory)configurableApplicationContext.getBeanFactory();
+
         logger.warn(
             "******Bulbasaur inner spring context initialized, spendTime:" + (System.currentTimeMillis() - start)
                 + " ms");
-        return applicationContext;
+        return defaultListableBeanFactory;
     }
 
     public static boolean isSpringContextShare() {
@@ -231,8 +272,8 @@ public class Bulbasaur implements InitializingBean, BeanFactoryPostProcessor, Ap
         return applicationContext;
     }
 
-    public static ApplicationContext getInnerApplicationContext() {
-        return innerApplicationContext;
+    public static BeanFactory getInnerBeanFactory() {
+        return innerBeanFactory;
     }
 
     public static void setSpringContext(ApplicationContext applicationContext) {
