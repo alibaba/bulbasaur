@@ -30,7 +30,7 @@ public class ScheduleMachineTest {
     }
 
     @Test
-    public void testMachineRun() {
+    public void testMachineRun() throws Exception {
         String bizId = getBizId();
         System.out.println("bizId:" + bizId);
 
@@ -40,7 +40,7 @@ public class ScheduleMachineTest {
         m.run();
 
         Assert.assertEquals("timer1", m.getCurrentStateName());
-        bulbasaurJobProcessor.execute();
+        bulbasaurJobProcessor.execute(null);
         ScheduleMachine end = scheduleMachineFactory.newInstance(bizId, "process");
 
         Assert.assertEquals("end", end.getCurrentStateName());
