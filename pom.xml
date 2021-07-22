@@ -363,13 +363,7 @@
   </build>
   <profiles>
     <profile>
-      <id>with-test</id>
-      <modules>
-        <module>test</module>
-      </modules>
-    </profile>
-    <profile>
-      <id>with-tools</id>
+      <id>plus-tools-module</id>
       <modules>
         <module>tools</module>
       </modules>
