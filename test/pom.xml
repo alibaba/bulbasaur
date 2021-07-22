@@ -11,6 +11,61 @@
   <artifactId>bulbasaur-test</artifactId>
   <name>${project.artifactId} v${project.version}</name>
   <packaging>war</packaging>
+  <description>A pluggable, scalable process engine. You can use it to develop business-process, approval-process,
+    retry-process and so on.
+  </description>
+  <url>https://github.com/alibaba/bulbasaur</url>
+  <inceptionYear>2017</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>Apache 2</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:git:git@github.com:alibaba/bulbasaur.git</connection>
+    <developerConnection>scm:git:git@github.com:alibaba/bulbasaur.git</developerConnection>
+    <url>git@github.com:alibaba/bulbasaur.git</url>
+  </scm>
+  <issueManagement>
+    <url>https://github.com/alibaba/bulbasaur/issues</url>
+    <system>GitHub Issues</system>
+  </issueManagement>
+  <organization>
+    <name>Alibaba</name>
+    <url>https://www.alibaba.com</url>
+  </organization>
+  <developers>
+    <developer>
+      <name>云彻</name>
+      <id>fromcth</id>
+      <email>fromcth(AT)gmail.com</email>
+      <roles>
+        <role>Developer</role>
+        <role>Architect</role>
+      </roles>
+      <timezone>+8</timezone>
+      <url>https://github.com/fromcth</url>
+      <organization>Alibaba</organization>
+      <organizationUrl>https://www.alibaba.com</organizationUrl>
+    </developer>
+    <developer>
+      <name>哲良</name>
+      <id>oldratlee</id>
+      <email>oldratlee(AT)gmail.com</email>
+      <roles>
+        <role>Developer</role>
+        <role>CI/SCM Engineer</role>
+      </roles>
+      <timezone>+8</timezone>
+      <url>https://github.com/oldratlee</url>
+      <organization>Alibaba</organization>
+      <organizationUrl>https://www.alibaba.com</organizationUrl>
+    </developer>
+  </developers>
 
   <properties>
     <maven.deploy.skip>true</maven.deploy.skip>
@@ -147,6 +202,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.1</version>
         <configuration>
           <webResources>
             <webResource>

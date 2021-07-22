@@ -1,14 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.tmall.pokemon.bulbasaur</groupId>
   <artifactId>bulbasaur-parent</artifactId>
   <version>1.1.3-SNAPSHOT</version>
-  <name>Bulbasaur Parent</name>
   <packaging>pom</packaging>
-  <description>process engine</description>
+  <name>Bulbasaur Parent</name>
+  <description>A pluggable, scalable process engine. You can use it to develop business-process, approval-process,
+    retry-process and so on.
+  </description>
+  <url>https://github.com/alibaba/bulbasaur</url>
+  <inceptionYear>2017</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>Apache 2</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:git:git@github.com:alibaba/bulbasaur.git</connection>
+    <developerConnection>scm:git:git@github.com:alibaba/bulbasaur.git</developerConnection>
+    <url>git@github.com:alibaba/bulbasaur.git</url>
+  </scm>
+  <issueManagement>
+    <url>https://github.com/alibaba/bulbasaur/issues</url>
+    <system>GitHub Issues</system>
+  </issueManagement>
+  <organization>
+    <name>Alibaba</name>
+    <url>https://www.alibaba.com</url>
+  </organization>
+  <developers>
+    <developer>
+      <name>云彻</name>
+      <id>fromcth</id>
+      <email>fromcth(AT)gmail.com</email>
+      <roles>
+        <role>Developer</role>
+        <role>Architect</role>
+      </roles>
+      <timezone>+8</timezone>
+      <url>https://github.com/fromcth</url>
+      <organization>Alibaba</organization>
+      <organizationUrl>https://www.alibaba.com</organizationUrl>
+    </developer>
+    <developer>
+      <name>哲良</name>
+      <id>oldratlee</id>
+      <email>oldratlee(AT)gmail.com</email>
+      <roles>
+        <role>Developer</role>
+        <role>CI/SCM Engineer</role>
+      </roles>
+      <timezone>+8</timezone>
+      <url>https://github.com/oldratlee</url>
+      <organization>Alibaba</organization>
+      <organizationUrl>https://www.alibaba.com</organizationUrl>
+    </developer>
+  </developers>
 
   <modules>
     <module>core</module>
@@ -31,6 +85,40 @@
     <junit.version>4.13.2</junit.version>
   </properties>
 
+  <dependencies>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>30.1.1-jre</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>2.9.5</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>transmittable-thread-local</artifactId>
+      <version>2.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -182,40 +270,14 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  <dependencies>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>30.1.1-jre</version>
-    </dependency>
 
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>joda-time</groupId>
-      <artifactId>joda-time</artifactId>
-      <version>2.9.5</version>
-    </dependency>
-    <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>transmittable-thread-local</artifactId>
-      <version>2.1.1</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.annotation</groupId>
-      <artifactId>javax.annotation-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
   <build>
     <plugins>
       <plugin>
@@ -250,6 +312,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
         <configuration>
           <archive>
             <addMavenDescriptor>true</addMavenDescriptor>
@@ -263,40 +326,8 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <inherited>false</inherited>
-        <configuration>
-          <aggregate>true</aggregate>
-          <breakiterator>true</breakiterator>
-          <charset>UTF-8</charset>
-          <docencoding>UTF-8</docencoding>
-          <windowtitle>Bulbasaur ${project.version} API Documentation</windowtitle>
-          <doctitle>Bulbasaur ${project.version} API Documentation</doctitle>
-          <encoding>UTF-8</encoding>
-          <excludePackageNames/>
-          <stylesheetfile>stylesheet.css</stylesheetfile>
-          <links>
-            <link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
-          </links>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-source-plugin</artifactId>
-        <!--version 2.1 can't tolerate the empty package.[src/main/java] -->
-        <!--<version>2.2.1</version> -->
-        <executions>
-          <execution>
-            <id>attach-source</id>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
         <configuration>
           <includes>
             <include>**/*Test.java</include>
@@ -304,7 +335,9 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
         <configuration>
           <source>1.6</source>
           <target>1.6</target>
@@ -314,8 +347,25 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
+        <version>3.9.1</version>
         <configuration>
           <locales>en,zh</locales>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.8</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
       </plugin>
     </plugins>
@@ -375,6 +425,142 @@
       <modules>
         <module>tools</module>
       </modules>
+    </profile>
+    <profile>
+      <id>gen-src+doc</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.2.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.3.0</version>
+            <inherited>false</inherited>
+            <executions>
+              <execution>
+                <id>attach-javadoc</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <windowtitle>Bulbasaur ${project.version} API Documentation</windowtitle>
+              <doctitle>Bulbasaur ${project.version} API Documentation</doctitle>
+              <stylesheetfile>stylesheet.css</stylesheetfile>
+              <breakiterator>true</breakiterator>
+              <excludePackageNames/>
+              <show>protected</show>
+              <charset>UTF-8</charset>
+              <encoding>UTF-8</encoding>
+              <docencoding>UTF-8</docencoding>
+              <links>
+                <link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
+              </links>
+              <additionalJOptions>
+                <additionalJOption>-quiet</additionalJOption>
+                <additionalJOption>-J-Duser.language=en</additionalJOption>
+                <additionalJOption>-J-Duser.country=US</additionalJOption>
+                <additionalJOption>-Xdoclint:none</additionalJOption>
+              </additionalJOptions>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>gen-sign</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>gen-git-properties</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <!--
+              Maven plugin which includes build-time git repository information into an POJO / *.properties).
+              Make your apps tell you which version exactly they were built from! Priceless in large distributed deployments.
+                  https://github.com/git-commit-id/git-commit-id-maven-plugin
+          -->
+          <plugin>
+            <groupId>io.github.git-commit-id</groupId>
+            <artifactId>git-commit-id-maven-plugin</artifactId>
+            <version>5.0.0</version>
+            <executions>
+              <execution>
+                <id>get-the-git-infos</id>
+                <goals>
+                  <goal>revision</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>validate-the-git-infos</id>
+                <goals>
+                  <goal>validateRevision</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <validationProperties>
+                <!-- verify that the current repository is not dirty -->
+                <validationProperty>
+                  <name>validating git dirty</name>
+                  <value>${git.dirty}</value>
+                  <shouldMatchTo>false</shouldMatchTo>
+                </validationProperty>
+              </validationProperties>
+              <generateGitPropertiesFile>true</generateGitPropertiesFile>
+              <generateGitPropertiesFilename>
+                ${project.build.outputDirectory}/META-INF/scm/${project.groupId}/${project.artifactId}/git.properties
+              </generateGitPropertiesFilename>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
 </project>
