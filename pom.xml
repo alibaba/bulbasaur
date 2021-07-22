@@ -27,7 +27,7 @@
     <log4j.version>1.2.16</log4j.version>
     <mybatis.version>3.3.0</mybatis.version>
 
-    <junit.version>4.12</junit.version>
+    <junit.version>4.13.1</junit.version>
   </properties>
 
   <dependencyManagement>
