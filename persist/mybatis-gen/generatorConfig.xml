@@ -28,7 +28,7 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.tmall.pokemon.bulbasaur.persist.domain" targetProject="MAVEN">
+        <javaModelGenerator targetPackage="com.alibaba.pokemon.bulbasaur.persist.domain" targetProject="MAVEN">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -37,7 +37,7 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.tmall.pokemon.bulbasaur.persist.mapper"
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.alibaba.pokemon.bulbasaur.persist.mapper"
                              targetProject="MAVEN">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>

@@ -67,12 +67,12 @@ bulbasaur分为四个模块，`按需加载`使用。分别为：
 <context:annotation-config/>
 
 <!--提供核心流程-->
-<bean id="coreModule" class="com.tmall.pokemon.bulbasaur.core.CoreModule">
+<bean id="coreModule" class="CoreModule">
     <!--用于区分不同环境-->
     <property name="ownSign" value="业务方配置执行，可以区分不同环境隔离"/>
 </bean>
 <!--提供流程的存储和失败回滚-->
-<bean id="persistModule" class="com.tmall.pokemon.bulbasaur.persist.PersistModule">
+<bean id="persistModule" class="PersistModule">
     <property name="dataSource" ref="dataSource"/>
     <!-- 默认为true走DB，不走DB 加上下面属性,并置为false -->
     <!--<property name="usePersistParser" value="false"/>-->
@@ -87,7 +87,7 @@ bulbasaur分为四个模块，`按需加载`使用。分别为：
 </bean>
 
 <!--提供人工任务和超时自动执行,提供失败重试，定时等调度逻辑 -->
-<bean id="scheduleModule" class="com.tmall.pokemon.bulbasaur.schedule.ScheduleModule">
+<bean id="scheduleModule" class="ScheduleModule">
     <!-- 默认不删除超过最大重试次数的job ，不设置则为false，这里为 true(删除)-->
     <property name="deleteOverdueJob" value="true"/>
     <!-- 指定quartz的表名前缀，如果不指定则默认为 QRTZ_ -->
@@ -95,10 +95,10 @@ bulbasaur分为四个模块，`按需加载`使用。分别为：
 </bean>
 
 <!--提供人工审批-->
-<bean id="taskModule" class="com.tmall.pokemon.bulbasaur.task.TaskModule"/>
+<bean id="taskModule" class="TaskModule"/>
 
 <!-- 引擎主bean，所有模块都用的时候 -->
-<bean id="bulbasaur" class="com.tmall.pokemon.bulbasaur.core.Bulbasaur">
+<bean id="bulbasaur" class="Bulbasaur">
     <property name="requireModule">
         <list>
             <ref bean="coreModule"/>
@@ -284,27 +284,27 @@ try {
 
 ## 任务处理接口
 
-- `com.tmall.pokemon.bulbasaur.task.service.TaskAccessor.hasTaskTakenPermission`  
+- `TaskAccessor.hasTaskTakenPermission`  
   判断用户是否有权限申领指定的任务
-- `com.tmall.pokemon.bulbasaur.task.service.TaskAccessor.takenTask`  
+- `TaskAccessor.takenTask`  
   申领一个任务
-- `com.tmall.pokemon.bulbasaur.task.service.TaskAccessor.releaseTask`  
+- `TaskAccessor.releaseTask`  
   释放一个任务，任务状态转为`created`
-- `com.tmall.pokemon.bulbasaur.task.service.TaskAccessor.hasTaskDealPermission`  
+- `TaskAccessor.hasTaskDealPermission`  
   判断用户是否有权限处理给定的任务
-- `com.tmall.pokemon.bulbasaur.task.service.TaskAccessor.completeTask(java.lang.Long, java.lang.String, com.tmall.pokemon.bulbasaur.task.model.User, java.lang.String)`  
+- `TaskAccessor.completeTask(java.lang.Long, java.lang.String, User, java.lang.String)`  
   完成一个任务，内部再次`run`
-- `com.tmall.pokemon.bulbasaur.task.service.TaskAccessor.assignTaskWithResult`  
+- `TaskAccessor.assignTaskWithResult`  
   当前所有人将任务转给指定用户
-- `com.tmall.pokemon.bulbasaur.task.service.TaskAccessor.queryTasksByUser`  
+- `TaskAccessor.queryTasksByUser`  
   业务方可以使用该接口，获取审批人的任务列表，支持单人单任务，多人单任务
-- `com.tmall.pokemon.bulbasaur.task.service.TaskAccessor.queryTasks`  
+- `TaskAccessor.queryTasks`  
   查询任务
-- `com.tmall.pokemon.bulbasaur.task.service.TaskAccessor.queryTaskByBizId`  
+- `TaskAccessor.queryTaskByBizId`  
   查询任务
-- `com.tmall.pokemon.bulbasaur.task.service.TaskAccessor.update(java.lang.Long, java.lang.String, java.lang.String)`  
+- `TaskAccessor.update(java.lang.Long, java.lang.String, java.lang.String)`  
   更新处理结果和意见
-- `com.tmall.pokemon.bulbasaur.task.service.TaskAccessor.update(java.lang.Long, java.lang.Object)`  
+- `TaskAccessor.update(java.lang.Long, java.lang.Object)`  
   按`taskId`，全量覆盖`bizInfo`
 
 ## 建表`DDL`

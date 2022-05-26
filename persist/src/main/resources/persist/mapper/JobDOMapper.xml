@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tmall.pokemon.bulbasaur.persist.mapper.JobDOMapper">
-  <resultMap id="BaseResultMap" type="com.tmall.pokemon.bulbasaur.persist.domain.JobDO">
+<mapper namespace="com.alibaba.pokemon.bulbasaur.persist.mapper.JobDOMapper">
+  <resultMap id="BaseResultMap" type="com.alibaba.pokemon.bulbasaur.persist.domain.JobDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
@@ -80,11 +80,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gmt_create, gmt_modified, biz_id, definition_name, state_name, event_type, status, 
-    repetition, ignore_weekend, deal_strategy, repeat_times, task_id, mod_num, end_time, 
+    id, gmt_create, gmt_modified, biz_id, definition_name, state_name, event_type, status,
+    repetition, ignore_weekend, deal_strategy, repeat_times, task_id, mod_num, end_time,
     last_exception_stack, out_going, own_sign
   </sql>
-  <select id="selectByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.JobDOExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.JobDOExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -107,7 +107,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from bulbasaur_j
     where id = #{id,jdbcType=BIGINT}
@@ -116,30 +116,30 @@
     delete from bulbasaur_j
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.JobDOExample">
+  <delete id="deleteByExample" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.JobDOExample">
     delete from bulbasaur_j
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.JobDO">
+  <insert id="insert" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.JobDO">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into bulbasaur_j (gmt_create, gmt_modified, biz_id, 
-      definition_name, state_name, event_type, 
-      status, repetition, ignore_weekend, 
-      deal_strategy, repeat_times, task_id, 
-      mod_num, end_time, last_exception_stack, 
+    insert into bulbasaur_j (gmt_create, gmt_modified, biz_id,
+      definition_name, state_name, event_type,
+      status, repetition, ignore_weekend,
+      deal_strategy, repeat_times, task_id,
+      mod_num, end_time, last_exception_stack,
       out_going, own_sign)
-    values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{bizId,jdbcType=VARCHAR}, 
-      #{definitionName,jdbcType=VARCHAR}, #{stateName,jdbcType=VARCHAR}, #{eventType,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{repetition,jdbcType=VARCHAR}, #{ignoreWeekend,jdbcType=TINYINT}, 
-      #{dealStrategy,jdbcType=VARCHAR}, #{repeatTimes,jdbcType=BIGINT}, #{taskId,jdbcType=BIGINT}, 
-      #{modNum,jdbcType=BIGINT}, #{endTime,jdbcType=TIMESTAMP}, #{lastExceptionStack,jdbcType=VARCHAR}, 
+    values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{bizId,jdbcType=VARCHAR},
+      #{definitionName,jdbcType=VARCHAR}, #{stateName,jdbcType=VARCHAR}, #{eventType,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR}, #{repetition,jdbcType=VARCHAR}, #{ignoreWeekend,jdbcType=TINYINT},
+      #{dealStrategy,jdbcType=VARCHAR}, #{repeatTimes,jdbcType=BIGINT}, #{taskId,jdbcType=BIGINT},
+      #{modNum,jdbcType=BIGINT}, #{endTime,jdbcType=TIMESTAMP}, #{lastExceptionStack,jdbcType=VARCHAR},
       #{outGoing,jdbcType=VARCHAR}, #{ownSign,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.JobDO">
+  <insert id="insertSelective" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.JobDO">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -251,7 +251,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.JobDOExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.JobDOExample" resultType="java.lang.Integer">
     select count(*) from bulbasaur_j
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -343,7 +343,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.JobDO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.JobDO">
     update bulbasaur_j
     <set>
       <if test="gmtCreate != null">
@@ -400,7 +400,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.JobDO">
+  <update id="updateByPrimaryKey" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.JobDO">
     update bulbasaur_j
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},

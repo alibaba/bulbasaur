@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tmall.pokemon.bulbasaur.persist.mapper.ProcessDOMapper">
-  <resultMap id="BaseResultMap" type="com.tmall.pokemon.bulbasaur.persist.domain.ProcessDO">
+<mapper namespace="com.alibaba.pokemon.bulbasaur.persist.mapper.ProcessDOMapper">
+  <resultMap id="BaseResultMap" type="com.alibaba.pokemon.bulbasaur.persist.domain.ProcessDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="biz_id" jdbcType="VARCHAR" property="bizId" />
     <result column="definition_name" jdbcType="VARCHAR" property="definitionName" />
@@ -72,10 +72,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, biz_id, definition_name, definition_version, own_sign, current_state_name, status, 
+    id, biz_id, definition_name, definition_version, own_sign, current_state_name, status,
     gmt_create, gmt_modified, alias
   </sql>
-  <select id="selectByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.ProcessDOExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.ProcessDOExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -98,7 +98,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from bulbasaur_p
     where id = #{id,jdbcType=BIGINT}
@@ -107,26 +107,26 @@
     delete from bulbasaur_p
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.ProcessDOExample">
+  <delete id="deleteByExample" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.ProcessDOExample">
     delete from bulbasaur_p
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.ProcessDO">
+  <insert id="insert" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.ProcessDO">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into bulbasaur_p (biz_id, definition_name, definition_version, 
-      own_sign, current_state_name, status, 
+    insert into bulbasaur_p (biz_id, definition_name, definition_version,
+      own_sign, current_state_name, status,
       gmt_create, gmt_modified, alias
       )
-    values (#{bizId,jdbcType=VARCHAR}, #{definitionName,jdbcType=VARCHAR}, #{definitionVersion,jdbcType=INTEGER}, 
-      #{ownSign,jdbcType=VARCHAR}, #{currentStateName,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+    values (#{bizId,jdbcType=VARCHAR}, #{definitionName,jdbcType=VARCHAR}, #{definitionVersion,jdbcType=INTEGER},
+      #{ownSign,jdbcType=VARCHAR}, #{currentStateName,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{alias,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.ProcessDO">
+  <insert id="insertSelective" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.ProcessDO">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -190,7 +190,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.ProcessDOExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.ProcessDOExample" resultType="java.lang.Integer">
     select count(*) from bulbasaur_p
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -250,7 +250,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.ProcessDO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.ProcessDO">
     update bulbasaur_p
     <set>
       <if test="bizId != null">
@@ -283,7 +283,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.ProcessDO">
+  <update id="updateByPrimaryKey" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.ProcessDO">
     update bulbasaur_p
     set biz_id = #{bizId,jdbcType=VARCHAR},
       definition_name = #{definitionName,jdbcType=VARCHAR},

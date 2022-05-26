@@ -35,10 +35,10 @@
 		</property>
 	</bean>
 	<!-- Controller -->
-	<bean name="mockController" class="com.taobao.bulbasaur.controller.MockController"/>
-	<bean name="createTaskController" class="com.taobao.bulbasaur.controller.CreateTaskController"/>
-	<bean name="takenTaskController" class="com.taobao.bulbasaur.controller.TakenTaskController"/>
-	<bean name="completeTaskController" class="com.taobao.bulbasaur.controller.CompleteTaskController"/>
-	<bean name="assignTaskController" class="com.taobao.bulbasaur.controller.AssignTaskController"/>
-	<bean name="dTSController" class="com.taobao.bulbasaur.controller.DTSController"/>
+	<bean name="mockController" class="com.alibaba.bulbasaur.controller.MockController"/>
+	<bean name="createTaskController" class="com.alibaba.bulbasaur.controller.CreateTaskController"/>
+	<bean name="takenTaskController" class="com.alibaba.bulbasaur.controller.TakenTaskController"/>
+	<bean name="completeTaskController" class="com.alibaba.bulbasaur.controller.CompleteTaskController"/>
+	<bean name="assignTaskController" class="com.alibaba.bulbasaur.controller.AssignTaskController"/>
+	<bean name="dTSController" class="com.alibaba.bulbasaur.controller.DTSController"/>
 </beans>

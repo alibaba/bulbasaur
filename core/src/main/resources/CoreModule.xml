@@ -7,9 +7,9 @@
 	   default-autowire="byName">
 
 	<context:annotation-config/>
-	<!-- <context:component-scan base-package="com.tmall.pokemon.bulbasaur.core"/> -->
-	<bean id="place" class="com.tmall.pokemon.bulbasaur.core.Place"/>
-	<bean id="parser" class="com.tmall.pokemon.bulbasaur.core.Parser"/>
-	<bean id="machineFactory" class="com.tmall.pokemon.bulbasaur.core.MachineFactory"/>
+	<!-- <context:component-scan base-package="com.alibaba.pokemon.bulbasaur.core"/> -->
+	<bean id="place" class="com.alibaba.pokemon.bulbasaur.core.Place"/>
+	<bean id="parser" class="com.alibaba.pokemon.bulbasaur.core.Parser"/>
+	<bean id="machineFactory" class="com.alibaba.pokemon.bulbasaur.core.MachineFactory"/>
 
 </beans>

@@ -6,6 +6,6 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
 	   default-autowire="byName">
 
-	<context:component-scan base-package="com.tmall.pokemon.bulbasaur.task"/>
+	<context:component-scan base-package="com.alibaba.pokemon.bulbasaur.task"/>
 
 </beans>

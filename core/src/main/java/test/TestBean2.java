@@ -3,8 +3,6 @@ package test;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.tmall.pokemon.bulbasaur.exception.BizException;
-
 /**
  * 用于core测试
  *

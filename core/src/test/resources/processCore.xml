@@ -1,4 +1,4 @@
-<process name="process" alias="流程啊">
+<process name="processCore" alias="流程啊">
 	<bizInfo>
 		<info key="r" value="r1" />
 		<info key="r" value="r2" />

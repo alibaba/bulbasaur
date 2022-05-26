@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.tmall.pokemon.bulbasaur</groupId>
+    <groupId>com.alibaba.pokemon.bulbasaur</groupId>
     <artifactId>bulbasaur-parent</artifactId>
     <version>1.1.5-SNAPSHOT</version>
   </parent>
@@ -69,12 +69,12 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.tmall.pokemon.bulbasaur</groupId>
+      <groupId>com.alibaba.pokemon.bulbasaur</groupId>
       <artifactId>bulbasaur-core</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.tmall.pokemon.bulbasaur</groupId>
+      <groupId>com.alibaba.pokemon.bulbasaur</groupId>
       <artifactId>bulbasaur-persist</artifactId>
       <version>${project.version}</version>
     </dependency>

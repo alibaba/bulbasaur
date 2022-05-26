@@ -8,10 +8,10 @@
 
     <context:annotation-config/>
 
-    <bean id="coreModule" class="com.tmall.pokemon.bulbasaur.core.CoreModule">
+    <bean id="coreModule" class="com.alibaba.pokemon.bulbasaur.core.CoreModule">
         <property name="ownSign" value="default"/>
     </bean>
-    <bean id="persistModule" class="com.tmall.pokemon.bulbasaur.persist.PersistModule">
+    <bean id="persistModule" class="com.alibaba.pokemon.bulbasaur.persist.PersistModule">
         <property name="dataSource" ref="dataSource"/>
         <!--<property name="usePersistParser" value="false"/> -->
         <property name="tableNameP" value="bulbasaur_p"/>
@@ -22,10 +22,10 @@
         <property name="tableNamePtp" value="bulbasaur_ptp"/>
 
     </bean>
-    <bean id="scheduleModule" class="com.tmall.pokemon.bulbasaur.schedule.ScheduleModule"/>
+    <bean id="scheduleModule" class="com.alibaba.pokemon.bulbasaur.schedule.ScheduleModule"/>
 
-    <bean id="taskModule" class="com.tmall.pokemon.bulbasaur.task.TaskModule"/>
-    <bean id="bulbasaur" class="com.tmall.pokemon.bulbasaur.core.Bulbasaur">
+    <bean id="taskModule" class="com.alibaba.pokemon.bulbasaur.task.TaskModule"/>
+    <bean id="bulbasaur" class="com.alibaba.pokemon.bulbasaur.core.Bulbasaur">
         <property name="requireModule">
             <list>
                 <ref bean="persistModule"/>

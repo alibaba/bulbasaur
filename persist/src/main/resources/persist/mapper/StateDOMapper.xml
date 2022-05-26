@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tmall.pokemon.bulbasaur.persist.mapper.StateDOMapper">
-  <resultMap id="BaseResultMap" type="com.tmall.pokemon.bulbasaur.persist.domain.StateDO">
+<mapper namespace="com.alibaba.pokemon.bulbasaur.persist.mapper.StateDOMapper">
+  <resultMap id="BaseResultMap" type="com.alibaba.pokemon.bulbasaur.persist.domain.StateDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="biz_id" jdbcType="VARCHAR" property="bizId" />
     <result column="state_name" jdbcType="VARCHAR" property="stateName" />
@@ -12,7 +12,7 @@
     <result column="alias" jdbcType="VARCHAR" property="alias" />
     <result column="exe_info" jdbcType="VARCHAR" property="exeInfo" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tmall.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.alibaba.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
     <result column="pre_biz_info" jdbcType="LONGVARCHAR" property="preBizInfo" />
     <result column="biz_info" jdbcType="LONGVARCHAR" property="bizInfo" />
   </resultMap>
@@ -80,7 +80,7 @@
   <sql id="Blob_Column_List">
     pre_biz_info, biz_info
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.StateDOExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -96,7 +96,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.StateDOExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -119,7 +119,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -130,26 +130,26 @@
     delete from bulbasaur_s
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOExample">
+  <delete id="deleteByExample" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.StateDOExample">
     delete from bulbasaur_s
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
+  <insert id="insert" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into bulbasaur_s (biz_id, state_name, own_sign, 
-      status, gmt_create, gmt_modified, 
-      alias, exe_info, pre_biz_info, 
+    insert into bulbasaur_s (biz_id, state_name, own_sign,
+      status, gmt_create, gmt_modified,
+      alias, exe_info, pre_biz_info,
       biz_info)
-    values (#{bizId,jdbcType=VARCHAR}, #{stateName,jdbcType=VARCHAR}, #{ownSign,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{alias,jdbcType=VARCHAR}, #{exeInfo,jdbcType=VARCHAR}, #{preBizInfo,jdbcType=LONGVARCHAR}, 
+    values (#{bizId,jdbcType=VARCHAR}, #{stateName,jdbcType=VARCHAR}, #{ownSign,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP},
+      #{alias,jdbcType=VARCHAR}, #{exeInfo,jdbcType=VARCHAR}, #{preBizInfo,jdbcType=LONGVARCHAR},
       #{bizInfo,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
+  <insert id="insertSelective" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -219,7 +219,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.StateDOExample" resultType="java.lang.Integer">
     select count(*) from bulbasaur_s
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -298,7 +298,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
+  <update id="updateByPrimaryKeySelective" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
     update bulbasaur_s
     <set>
       <if test="bizId != null">
@@ -334,7 +334,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.StateDOWithBLOBs">
     update bulbasaur_s
     set biz_id = #{bizId,jdbcType=VARCHAR},
       state_name = #{stateName,jdbcType=VARCHAR},
@@ -348,7 +348,7 @@
       biz_info = #{bizInfo,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tmall.pokemon.bulbasaur.persist.domain.StateDO">
+  <update id="updateByPrimaryKey" parameterType="com.alibaba.pokemon.bulbasaur.persist.domain.StateDO">
     update bulbasaur_s
     set biz_id = #{bizId,jdbcType=VARCHAR},
       state_name = #{stateName,jdbcType=VARCHAR},

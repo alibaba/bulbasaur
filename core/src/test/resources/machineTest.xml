@@ -9,12 +9,12 @@
 	<context:annotation-config/>
 
 	<!--提供核心流程 -->
-	<bean id="coreModule" class="com.tmall.pokemon.bulbasaur.core.CoreModule">
+	<bean id="coreModule" class="com.alibaba.pokemon.bulbasaur.core.CoreModule">
 		<!--用于区分日常，预发和线上 -->
 		<property name="ownSign" value="default"/>
 	</bean>
 
 	<!-- 引擎主bean -->
-	<bean id="bulbasaur" class="com.tmall.pokemon.bulbasaur.core.Bulbasaur"/>
+	<bean id="bulbasaur" class="com.alibaba.pokemon.bulbasaur.core.Bulbasaur"/>
 
 </beans>

@@ -12,6 +12,6 @@
 	<import resource="biz_spring.xml"></import>
 
 
-	<bean id="notifyPage" class="com.taobao.bulbasaur.service.NotifyPage"/>
+	<bean id="notifyPage" class="com.alibaba.bulbasaur.service.NotifyPage"/>
 
 </beans>
