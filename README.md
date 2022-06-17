@@ -365,6 +365,7 @@ CREATE TABLE `xxxx_bulbasaur_s` (
   `gmt_create` datetime NOT NULL COMMENT 'gmt_create',
   `gmt_modified` datetime DEFAULT NULL COMMENT 'gmt_modified',
   `alias` varchar(64) DEFAULT NULL COMMENT '别名，主要维护中文名',
+  `exe_info` text DEFAULT NULL COMMENT '执行信息',
   PRIMARY KEY (`id`),
   KEY `idx_bizid_ownsign_statename` (`biz_id`,`own_sign`,`state_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=281 DEFAULT CHARSET=utf8 COMMENT='节点表'
